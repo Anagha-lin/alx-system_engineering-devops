@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type f -name "". js" -delete
+echo "ls -la" > ls_cwd_content
