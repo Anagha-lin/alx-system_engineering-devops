@@ -1,0 +1,70 @@
+ User Access Scenario:
+A user wants to access the website www.foobar.com.
+User Intent: The user intends to access the website www.foobar.com.
+Initiation: The user opens a web browser and types in the URL www.foobar.com.
+DNS Resolution:
+The browser initiates a Domain Name System (DNS) resolution to translate www.foobar.com into an IP address. The DNS query looks up the CNAME record for www in www.foobar.com, pointing to the server's IP address (8.8.8.8).
+Connection Establishment:
+ The browser establishes a connection to the server at IP address 8.8.8.8.
+HTTP/HTTPS Request:
+The user's browser sends an HTTP/HTTPS request to the server for the www.foobar.com webpage.
+Web Server Handling:
+The web server (Nginx) receives the HTTP/HTTPS request. Nginx handles the request, serving static content directly if applicable. If the requested content is dynamic (e.g., involves database interaction), Nginx communicates with the application server.
+Application Server Interaction: The application server processes dynamic content, interacts with the application code, and may communicate with the database.
+Database Interaction:
+If required, the application server communicates with the database (MySQL) to retrieve or store data.
+Response Generation:
+The application server generates the appropriate response, combining static and dynamic content.
+HTTP/HTTPS Response:
+The server sends the HTTP/HTTPS response back to the user's browser.
+Browser Rendering:
+The user's browser receives the response and renders the www.foobar.com webpage.
+The user interacts with the webpage, and the browser may make additional requests for resources like images, style sheets, or scripts.
+ Components:
+Server (8.8.8.8):
+The server, with the IP address 8.8.8.8, is the hardware or virtual machine that hosts the entire web infrastructure. It is the foundational element, hosting the hardware or virtual machine that runs the entire web infrastructure.
+
+Web Server (Nginx):
+ Nginx is responsible for receiving and processing HTTP requests.  It serves static content directly to users, such as HTML files, images, and style sheets.
+Application Server:
+ The application server handles dynamic content generation, executing code based on user requests.
+ It interacts with the application codebase to provide personalized and dynamic responses.
+
+Application Files (Code Base):
+ The application files consist of the code base for the website, including scripts, templates, and other necessary files.
+
+Database (MySQL):
+ MySQL is the database management system responsible for storing and retrieving data used by the application.
+Domain Setup:
+ Domain Name (www.foobar.com):
+ The domain name, www.foobar.com, provides a human-readable address for users to access the website. www.foobar.com is the domain name configured to direct users to the server at IP address 8.8.8.8.
+ DNS Record (www):
+ The DNS record for www in www.foobar.com is a CNAME record, indicating that www should point to the server's IP address.
+
+
+
+Single Point of Failure (SPOF):
+If any component fails, the entire system is affected.
+The infrastructure has a single point of failure, meaning that if any critical component fails, the entire system may become unavailable.
+Downtime during Maintenance:
+Web server restarts during code deployment, causing temporary unavailability. Maintenance activities, such as deploying new code, may lead to temporary unavailability as the web server needs to restart.
+Scaling Limitations:
+ The infrastructure faces challenges in scaling to accommodate a sudden increase in incoming traffic, limiting its scalability.
+Explanation:
+ What is a server?
+A server is a hardware or virtual machine that hosts and serves resources and applications to other computers over a network.
+ What is the role of the domain name?
+The domain name provides a human-readable address for the website, allowing users to access it using www.foobar.com.
+What type of DNS record is www in www.foobar.com?
+The DNS record for www in www.foobar.com is a CNAME record, pointing to the server's IP.
+What is the role of the web server?
+The web server (Nginx) handles incoming HTTP requests, serves static content, and communicates with the application server.
+ What is the role of the application server?
+The application server processes dynamic content, interacts with the application code, and communicates with the database.
+
+ What is the role of the database?
+The database (MySQL) stores and retrieves data for the application, providing a persistent storage solution.
+ What is the server using to communicate with the computer of the user requesting the website?
+The server communicates with the user's computer using HTTP or HTTPS protocols.
+
+
