@@ -1,0 +1,40 @@
+ Components:
+1. Server 1 (8.8.8.8):  Hosting machine for the entire secured infrastructure.
+2. Server 2: Additional server for redundancy and improved availability.
+3. Load Balancer (HAproxy):  Distributes incoming requests to the two application servers.
+4. Web Server (Nginx):  Handles HTTP requests, serves static content.
+5. Application Servers (App1, App2):  Process dynamic content, interact with the application code.
+6. Application Files (Code Base): Contains the code for the website.
+7. Database (MySQL - Primary & Replica): Primary node for read-write operations and replica node for read-only operations, improving scalability and redundancy.
+8. Firewalls (Firewall1, Firewall2, Firewall3):  Added for security, controlling incoming and outgoing traffic.
+9. SSL Certificate: To serve www.foobar.com over HTTPS, ensuring encrypted traffic.
+10. Monitoring Clients (Client1, Client2, Client3):Data collectors for monitoring services (e.g., Sumologic) as well as collect and analyze performance and security data.
+
+Design Explanation:
+1. Additional Elements:
+   Firewalls: Added for security to control and monitor incoming and outgoing traffic.
+    SSL Certificate: Enables HTTPS to ensure encrypted traffic for secure communication.
+   Monitoring Clients: Collect data for performance and security analysis.
+2. Reasons for Additional Elements:
+   Firewalls: Enhance security by controlling and filtering network traffic.
+   SSL Certificate: Secures communication between users and the website.
+  Monitoring Clients: Collect and analyze data for proactive issue identification and system improvement.
+3. Traffic over HTTPS:
+   Why: Ensures encrypted communication, protecting user data from interception.
+4. Firewalls:
+   Purpose: Control incoming and outgoing traffic, protecting against unauthorized access and potential threats.
+5. Monitoring:
+   Purpose: Collects performance and security data to identify issues and optimize system performance.
+6. Monitoring Data Collection:
+   How: Monitoring clients (e.g., Sumologic) collect data on system performance, security, and logs.
+
+7. Monitoring QPS (Queries Per Second):
+   How: Configure monitoring tools to track and analyze web server QPS metrics.
+Issues with the Infrastructure:
+1. Terminating SSL at the Load Balancer Level:
+   Issue: The traffic is decrypted at the load balancer, potentially exposing data during internal communication.
+2. Single MySQL Server Accepting Writes:
+   Issue: Potential single point of failure for write operations, impacting system availability.
+3. Identical Components on Servers:
+   Issue: Uniformity might lead to vulnerabilities. Diversification can improve security by avoiding a single point of compromise.
+
