@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
-# This script installs and configures Nginx on an Ubuntu machine
+# Description: Install and configure Nginx on web-01 server
+# Requirements: Nginx to listen on port 80 and return "Holberton School" on root query with curl
 
-# Update package index and install nginx
-apt-get update -y
-apt-get install nginx -y
+# Update package index
+apt-get -y update
 
-# Ensure nginx is listening on port 80
-sed -i 's/80 default_server/80 default_server;/g' /etc/nginx/sites-available/default
+# Install Nginx
+apt-get -y install nginx
 
-# Restart nginx
-service nginx restart
+# Allow Nginx HTTP traffic
+ufw allow 'Nginx HTTP'
 
-# Create a default HTML page with "Hello World!"
-echo "Hello World!" > /var/www/html/index.html
+# Create default HTML page
+echo 'Holberton School' > /var/www/html/index.html
+
+# Start Nginx service
+service nginx start
 
