@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# This script fixes Apache configuration to return a page containing "Hello Holberton"
+
+# Install Apache if not already installed
+apt-get update
+apt-get install -y apache2
+
+# Create the index.html file containing "Hello Holberton"
+echo "Hello Holberton" > /var/www/html/index.html
+
+# Restart Apache to apply changes
+service apache2 restart
+
