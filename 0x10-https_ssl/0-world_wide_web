@@ -1,35 +1,27 @@
 #!/usr/bin/env bash
 
-# Function to display usage instructions
-display_usage() {
-    echo "Usage: $0 <domain> [subdomain]"
-    echo "  domain: Domain name to audit (mandatory)"
-    echo "  subdomain: Specific subdomain to audit (optional)"
-}
+# Bash script that will display information about subdomains.
 
-# Function to check subdomain information
-check_subdomain_info() {
-    local domain="$1"
-    local subdomain="$2"
-    
-    # If subdomain is not provided, default to www, lb-01, web-01, and web-02
-    if [ -z "$subdomain" ]; then
-        subdomain="www lb-01 web-01 web-02"
-    fi
-    
-    for sub in $subdomain; do
-        result=$(dig +short "$sub"."$domain" | awk '{print $1}')
-        record_type=$(dig +short "$sub"."$domain" | awk '{print $2}')
-        echo "The subdomain $sub is a $record_type record and points to $result"
+function domain_check {
+    domain_names=("www" "lb-01" "web-01" "web-02")
+
+    for i in "${domain_names[@]}";
+    do
+        dig "${i}"."$1" | awk '/ANSWER SECTION:/ {getline; printf "The subdomain %s is a %s record and points to %s\n", "'"$i"'", $4, $5}'
     done
 }
 
-# Check if required arguments are provided
-if [ $# -lt 1 ]; then
-    display_usage
-    exit 1
-fi
+function subdomain_check {
+    dig "${2}"."$1" | awk '/ANSWER SECTION:/ {getline; printf "The subdomain %s is a %s record and points to %s\n", "'"$2"'", $4, $5}'
+}
 
-# Call the function to check subdomain information
-check_subdomain_info "$@"
+if [ $# -lt 1 ]
+then
+    echo "*** Provide domain name ***"
+elif [ $# -eq 1 ]
+then
+    domain_check "$1";
+else
+    subdomain_check "$1" "$2";
+fi
 
