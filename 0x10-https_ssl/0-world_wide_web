@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Function to display usage instructions
+display_usage() {
+    echo "Usage: $0 <domain> [subdomain]"
+    echo "  domain: Domain name to audit (mandatory)"
+    echo "  subdomain: Specific subdomain to audit (optional)"
+}
+
+# Function to check subdomain information
+check_subdomain_info() {
+    local domain="$1"
+    local subdomain="$2"
+    
+    # If subdomain is not provided, default to www, lb-01, web-01, and web-02
+    if [ -z "$subdomain" ]; then
+        subdomain="www lb-01 web-01 web-02"
+    fi
+    
+    for sub in $subdomain; do
+        result=$(dig +short "$sub"."$domain" | awk '{print $1}')
+        record_type=$(dig +short "$sub"."$domain" | awk '{print $2}')
+        echo "The subdomain $sub is a $record_type record and points to $result"
+    done
+}
+
+# Check if required arguments are provided
+if [ $# -lt 1 ]; then
+    display_usage
+    exit 1
+fi
+
+# Call the function to check subdomain information
+check_subdomain_info "$@"
+
