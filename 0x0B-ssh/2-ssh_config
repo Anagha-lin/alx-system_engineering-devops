@@ -3,7 +3,7 @@
 Host *
     # Use the private key for authentication
 <<<<<<< HEAD
-    IdentityFile ~/.alx-system_engineering-devops/0x0B-ssh/school
+    IdentityFile ~/.ssh/school
 =======
     IdentityFile ~/.ssh/school
 >>>>>>> 5674846c275afe58cc83329972b451e44081b3ba
