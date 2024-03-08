@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Establishes a symbolic link (-s) between the Nginx configuration files
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+# Restarts the Nginx service
+kill "$(pgrep 'nginx' | head -1)"
+

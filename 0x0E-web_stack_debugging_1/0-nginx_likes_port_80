@@ -1,0 +1,32 @@
+s script ensures Nginx is listening on port 80 of all the server’s active IPv4 IPs
+
+# Check if Nginx is installed
+if ! command -v nginx &> /dev/null; then
+    echo "Nginx is not installed. Please install it first."
+    exit 1
+fi
+
+# Check if Nginx is running
+if ! pgrep nginx &> /dev/null; then
+    echo "Nginx is not running. Starting Nginx..."
+    service nginx start
+fi
+
+# Check if Nginx is listening on port 80
+if ! netstat -tuln | grep ':80 ' &> /dev/null; then
+    echo "Nginx is not listening on port 80. Updating Nginx configuration..."
+    sed -i 's/listen 80 default_server;/listen 80 default_server;\n    listen [::]:80 default_server;/g' /etc/nginx/sites-available/default
+    echo "Restarting Nginx service..."
+    service nginx restart
+fi
+
+# Check if Nginx is now listening on port 80
+if netstat -tuln | grep ':80 ' &> /dev/null; then
+    echo "Nginx is now listening on port 80."
+else
+    echo "Failed to configure Nginx to listen on port 80."
+    exit 1
+fi
+
+exit 0
+

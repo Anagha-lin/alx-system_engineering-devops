@@ -1,0 +1,2 @@
+./0-nginx_likes_port_80: line 1: s: command not found
+Nginx is not installed. Please install it first.
