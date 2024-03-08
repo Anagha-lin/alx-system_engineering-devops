@@ -1,0 +1,9 @@
+# SSH client configuration
+
+Host *
+    # Use the private key for authentication
+    IdentityFile ~/.alx-system_engineering-devops/0x0B-ssh/school
+
+    # Refuse authentication using a password
+    PasswordAuthentication no
+

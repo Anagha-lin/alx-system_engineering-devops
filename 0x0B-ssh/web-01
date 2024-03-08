@@ -1,0 +1,4 @@
+eval $(ssh-agent)
+ssh-add /root/.ssh/school
+ssh-add -l
+
