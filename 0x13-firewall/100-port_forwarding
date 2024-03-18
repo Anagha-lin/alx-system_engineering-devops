@@ -1,0 +1,18 @@
+#!/bin/bash
+#deny all incoming traffic
+ufw default deny incoming
+
+# Allow incoming traffic on port 22 (SSH), 80 (HTTP), and 443 (HTTPS)
+ufw allow 22/tcp
+ufw allow 80/tcp
+ufw allow 443/tcp
+
+# Allow incoming traffic on port 8080 (TCP)
+ufw allow 8080/tcp
+
+# Enable port forwarding from port 8080 to port 80
+iptables -t nat -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+
+# Enable ufw
+ufw enable
+
