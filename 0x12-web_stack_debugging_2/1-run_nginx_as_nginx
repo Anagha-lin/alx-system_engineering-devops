@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#this script configures Nginx to run as the nginx user and listen on port 8080.
+
+# Check if nginx user exists
+if ! id -u nginx &>/dev/null; then
+    echo "Error: nginx user does not exist."
+    exit 1
+fi
+
+# Update nginx configuration to run as nginx user
+sed -i 's/^user .*/user nginx;/g' /etc/nginx/nginx.conf
+
+# Ensure nginx listens on port 8080 on all active IPs
+sed -i '/listen\s*80;/a listen 8080;' /etc/nginx/sites-available/default
+
+# Restart Nginx service to apply changes
+service nginx restart
+
