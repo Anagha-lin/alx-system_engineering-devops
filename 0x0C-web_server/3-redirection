@@ -1,25 +1,21 @@
 #!/usr/bin/env bash
-# Configure Nginx to redirect /redirect_me to another page with a "301 Moved Permanently" status code
+#Configure your Nginx server so that /redirect_me is redirecting to another page.
+# The redirection is configured as a "301 Moved Permanently"
 
-# Update package lists and install Nginx
 apt-get update
 apt-get install -y nginx
 
-# Create directory and index.html file for Nginx default site
-mkdir -p /etc/nginx/html
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
 echo "Hello World!" > /etc/nginx/html/index.html
-
-# Configure Nginx default site for redirection
 printf %s "server {
     listen 80;
     listen [::]:80 default_server;
     root   /etc/nginx/html;
     index  index.html index.htm;
     location /redirect_me {
-        return 301 https://github.com/Anagha-lin;
+        return 301 https://github.com/SireCourage001;
     }
 }" > /etc/nginx/sites-available/default
 
-# Restart Nginx service to apply changes
 service nginx restart
-
