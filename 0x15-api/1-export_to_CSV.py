@@ -47,7 +47,7 @@ def export_to_csv(user_data, todo_data):
         writer = csv.writer(file)
         writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         for task in todo_data:
-            writer.writerow([employee_id, employee_name, task['completed'], task['title']])
+            writer.writerow([employee_id, employee_name, str(task['completed']), task['title']])
     print("Data exported to", csv_file)
 
 
