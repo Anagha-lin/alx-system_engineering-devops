@@ -16,7 +16,7 @@ frontend  Anagha-lin_frontend
         mode http
         default_backend Anagha-lin_backend
 
-backend Anaghalin_backend
+backend Anagha-lin_backend
         balance roundrobin
         server 423659-web-01 18.207.112.104:80 check
         server 423659-web-02 52.73.32.214:80 check
