@@ -1,6 +1,6 @@
 import requests
 
-def count_words(subreddit, word_list, after=None, count_dic=None):
+def count_words(subreddit, word_list, after=None, counts=None):
     """
     Recursively queries the Reddit API, parses the titles of all hot articles,
     and prints a sorted count of given keywords.
@@ -9,13 +9,13 @@ def count_words(subreddit, word_list, after=None, count_dic=None):
         subreddit (str): The subreddit to query.
         word_list (list): List of keywords to count occurrences of.
         after (str): Parameter for pagination to get the next set of results (default None).
-        count_dic (dict): Dictionary to store the counts of keywords (default None).
+        counts (dict): Dictionary to store the counts of keywords (default None).
 
     Returns:
         None
     """
-    if count_dic is None:
-        count_dic = {}
+    if counts is None:
+        counts = {}
 
     headers = {'User-Agent': 'Anagha-lin'}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
@@ -31,12 +31,12 @@ def count_words(subreddit, word_list, after=None, count_dic=None):
             title = child['data']['title']
             for word in word_list:
                 if word.lower() in title.lower().split():
-                    count_dic[word.lower()] = count_dic.get(word.lower(), 0) + 1
+                    counts[word.lower()] = counts.get(word.lower(), 0) + 1
 
         if after:
-            count_words(subreddit, word_list, after, count_dic)
+            count_words(subreddit, word_list, after, counts)
         else:
-            sorted_counts = sorted(count_dic.items(), key=lambda x: (-x[1], x[0]))
+            sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
             for word, count in sorted_counts:
                 print("{}: {}".format(word, count))
 
