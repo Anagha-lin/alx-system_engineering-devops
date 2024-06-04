@@ -24,12 +24,16 @@ def top_ten(subreddit):
         data = response.json()
         if 'data' in data and 'children' in data['data']:
             for post in data['data']['children']:
-                print(post['data']['title'])
+                print("{}".format(post['data']['title']))
         else:
-            print("No posts found for subreddit '{}'".format(subreddit))
+            print("None")
     else:
-        print("Error fetching data from Reddit API")
+        print("None")
 
 if __name__ == '__main__':
-    top_ten(sys.argv[1])
+    import sys
+    if len(sys.argv) < 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        top_ten(sys.argv[1])
 
